@@ -10,17 +10,6 @@ import java.util.Scanner;
  */
 public class ShoppingList {
 
-    /*
-    Write a program (ShoppingList.java, in the app package) that:
-        1. Creates an instance of your DynamicArrayList class.
-        2. Asks the user how many entries they’d like to add to their shopping list.
-        3. Prompts the user to enter the specified number of entries for their shopping list and adds each to the list (each
-        line can contain one or more words each, or may be null)
-        4. Loops through the shopping list and displays the content.
-        5. Repeatedly offers a menu of actions that can be done by the shopping list (based on the functionality you have
-        been tasked with) and provides the logic for each.
-
-     */
     public static void main(String[] args) {
         DynamicArrayList productList = new DynamicArrayList();
         Scanner sc = new Scanner(System.in);
