@@ -189,31 +189,5 @@ public class DynamicArrayListCoreTests {
         assertEquals("Item 10", lastItem);
     }
 
-    /**
-     * Test of isEmpty method with an empty list.
-     */
-    @Test
-    public void testIsEmpty() {
-        System.out.println("Testing isEmpty with an empty list");
-        DynamicArrayList instance = new DynamicArrayList();
-        boolean expResult = true;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-    }
- 
-    /**
-     * Test of isEmpty method with a populated list.
-     */
-    @Test
-    public void testIsEmpty_PopulatedList() {
-        System.out.println("Testing isEmpty with a populated list");
-        DynamicArrayList instance = new DynamicArrayList();
-        instance.add("Entry Zero");
-        instance.add("Entry One");
-        instance.add("Entry Two");
-        
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-    }
+
 }

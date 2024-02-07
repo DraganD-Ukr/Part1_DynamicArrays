@@ -3,58 +3,40 @@ package utils;
 /**
  *
  * @author michelle
+ *
  */
 
-/*
-1. Your dynamic array list should include a constructor that lets the user specify the initial capacity of the internal array.
-The constructor should take in one parameter, an int that specifies the initial size to which the internal array should be initialised.
-The supplied size should be validated, and invalid values handled accordingly.
 
-
-
-2. Your list should contain a method called add() that takes two parameters:
-
-    - A String to be added (this may be null).
-    - A position at which to insert the data.
-The position should be validated and invalid positions handling accordingly.
-If the position is valid, the data from that position should be added to the list using shift insertion.
-If there is insufficient space in the list, the internal array should be grown
-(using the arraycopy method from Java’s API OR your own growArray algorithm) and the String added then.
-
-If supplied, null values should be added.
-
-
-
-3. Your list should contain a method called removeAll() that takes one parameter:
-
-    - The String to be removed (this should not be null).
-All instances of this String should be removed from the list.
-The method should return a boolean indicating if the String was removed (if at least one instance is removed, the method should return true, otherwise it should return false).
-
-
-
-4. Your list should contain a method called lastIndexOf() that takes one parameter:
-
-   - The String to be found in the list (This should not be null)
-The method should return an int indicating the last position at which the String could be found.
-If the String could not be found, an appropriate value should be returned to indicate this.
-Comparisons should be done in a case-sensitive manner, and null should not be acceptable as a parameter for this method.
-
- */
-
-//    TODO Extra Tasks
 
 public class DynamicArrayList {
+    /**
+     * List to hold String Objects.
+     */
     private String[] list;
+    /**
+     * Numbers of elements in the ArrayList.
+     */
     private int numElements;
+    /**
+     * Default number of initial capacity when creating an ArrayList using default constructor.
+     */
     private static int defaultInitialCapacity = 10;
 
+
+    /**
+     * Default Constructor
+     */
     public DynamicArrayList() {
         list = new String[defaultInitialCapacity];
         numElements = 0;
     }
 
-
+    /**
+     * Constructor with specifying initial capacity of ArrayList.
+     *
+     * @param initialCapacity new initial capacity
+     * @throws IllegalArgumentException
+     */
     public DynamicArrayList(int initialCapacity) throws IllegalArgumentException {
         if (initialCapacity > 0 && initialCapacity < Integer.MAX_VALUE) {
             list = new String[initialCapacity];
@@ -65,10 +47,21 @@ public class DynamicArrayList {
         numElements = 0;
     }
 
+    /**
+     * Gets a number of elements stored in ArrayList.
+     * @return number of elements stored
+     */
     public int size() {
         return this.numElements;
     }
 
+    /**
+     * Gets a String at specified index in ArrayList.
+     *
+     * @param index position of String to return
+     * @return String
+     * @throws IndexOutOfBoundsException
+     */
     public String get(int index) throws IndexOutOfBoundsException {
         if (index<0 || index>=numElements){
             throw new IndexOutOfBoundsException();
@@ -76,6 +69,12 @@ public class DynamicArrayList {
         return list[index];
     }
 
+    /**
+     * Gets a first index of specified String in ArrayList.
+     *
+     * @param target specified String to search in ArrayList
+     * @return -1 if there is no such specified String, otherwise the index of first match
+     */
     public int indexOf(String target) {
         for (int i = 0; i < numElements; i++) {
             if (list[i].equals(target)) {
@@ -85,6 +84,13 @@ public class DynamicArrayList {
         return -1;
     }
 
+    /**
+     * Gets a last index of specified String in ArrayList.
+     *
+     * @param target specified String to search in ArrayList
+     * @return -1 if there is no such specified String, otherwise the index of last match
+     * @throws IllegalArgumentException
+     */
     public int lastIndexOf(String target) throws IllegalArgumentException {
         if (target==null){
             throw new IllegalArgumentException();
@@ -97,6 +103,13 @@ public class DynamicArrayList {
         return -1;
     }
 
+    /**
+     * Adds a String at specified index with shifting other elements to right.
+     *
+     * @param word a String to be added
+     * @param pos an index to be added at
+     * @throws IndexOutOfBoundsException
+     */
     public void add(String word, int pos) throws IndexOutOfBoundsException {
 
         if (pos < 0 || pos > this.size()) {
@@ -123,6 +136,11 @@ public class DynamicArrayList {
 
     }
 
+    /**
+     * Adds a specified String to the end of ArrayList.
+     *
+     * @param word a String to be added
+     */
     public void add(String word) {
 
         while (numElements >= list.length) {
@@ -134,6 +152,9 @@ public class DynamicArrayList {
     }
 
 
+    /**
+     * Helper method to grow array(creating new array with bigger size and copying elements over to new resized array).
+     */
     private void grow() {
         int numberToGrow = 5; //Instead of defining a number to grow array when it's full
         // we can provide a user an option to choose or alternatively, make this number dynamically change,
@@ -144,14 +165,13 @@ public class DynamicArrayList {
         this.list = grownList;
     }
 
-
-    public boolean isEmpty() {
-        return numElements == 0;
-    }
-
-
-
-
+    /**
+     * Removes all matches of a specified String in ArrayList. Shifts elements to the left after removing.
+     *
+     * @param text a String(s) to be removed from ArrayList
+     * @return true if at least one element was removed, false otherwise
+     * @throws IllegalArgumentException
+     */
     public boolean removeAll(String text) throws IllegalArgumentException {
         if (text == null){
             throw new IllegalArgumentException();
