@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+
 /**
  *
  * @author michelle
@@ -111,30 +113,35 @@ public class DynamicArrayList {
      * @throws IndexOutOfBoundsException
      */
     public void add(String word, int pos) throws IndexOutOfBoundsException {
+        // Check if the position is valid
+        if (pos < 0 || pos > numElements) {
+            throw new IndexOutOfBoundsException("Invalid index: " + pos);
+        }
 
-        if (pos < 0 || pos > this.size()) {
-            throw new IndexOutOfBoundsException();
+        //Grow array if needed
+        if (numElements == list.length){
+            this.grow();
         }
 
         String[] result = new String[list.length];
-        int j = 0;
 
-        for (int i = 0; i < this.size()+1; i++) {
-            if (i != pos) {
-                result[j] = list[i];
-            } else {
-                result[j] = word;
-                result[j+1] = list[i];
-                j++;
-            }
-            j++;
-        }
-        list[numElements] = word;
+        // Copy elements before the specified position
+        System.arraycopy(list, 0, result, 0, pos);
+
+        // Insert the new word at the specified position
+        result[pos] = word;
+
+        // Copy elements after the specified position
+        System.arraycopy(list, pos, result, pos + 1, numElements - pos);
+
+        // Update the list with the new elements
+        list = result;
+
         numElements++;
-
-        this.list = result;
-
     }
+
+
+
 
     /**
      * Adds a specified String to the end of ArrayList.
@@ -142,10 +149,12 @@ public class DynamicArrayList {
      * @param word a String to be added
      */
     public void add(String word) {
-
-        while (numElements >= list.length) {
+        //Grow array if needed
+        if (numElements == list.length){
             this.grow();
         }
+
+
 
         list[numElements] = word;
         numElements++;
@@ -181,6 +190,7 @@ public class DynamicArrayList {
         int tracker = 0;
         int countOfDeletedNums = 0;
 
+        //Simply copying over elements if they don't equal to specified word and counting number of removals.
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).equals(text)){
                 countOfDeletedNums++;
